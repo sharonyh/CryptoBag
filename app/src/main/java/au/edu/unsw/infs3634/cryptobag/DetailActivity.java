@@ -27,13 +27,18 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Intent intent = getIntent();
-        int position = intent.getIntExtra(MainActivity.EXTRA_MESSAGE, 0);
-
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         Fragment fragment = new DetailFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.detailContainer, fragment).commit();
+        transaction.add(R.id.detailContainer, fragment);
+        transaction.commit();
+
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
+        Bundle intentBundle = new Bundle();
+        intentBundle.putString(MainActivity.EXTRA_MESSAGE, message);
+        fragment.setArguments(intentBundle);
 
     }
 
