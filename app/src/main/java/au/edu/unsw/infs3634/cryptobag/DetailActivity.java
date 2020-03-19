@@ -30,7 +30,7 @@ public class DetailActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         Fragment fragment = new DetailFragment();
-        transaction.add(R.id.detailContainer, fragment);
+        transaction.add(R.id.detailContainerScroll, fragment);
         transaction.commit();
 
         Intent intent = getIntent();
