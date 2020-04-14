@@ -10,15 +10,15 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        if(findViewById(R.id.detail_container)!=null){
-            if (savedInstanceState != null) {
-                return;
-            }
+        if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
             arguments.putString(DetailFragment.ARG_ITEM_ID, getIntent().getStringExtra(DetailFragment.ARG_ITEM_ID));
             DetailFragment fragment = new DetailFragment();
             fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction().add(R.id.detail_container, fragment).commit();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.detail_container, fragment)
+                    .commit();
         }
     }
 }
+

@@ -2,11 +2,8 @@ package au.edu.unsw.infs3634.cryptobag.Entities;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.io.Serializable;
-
-public class Info implements Serializable {
+public class Info {
 
     @SerializedName("coins_num")
     @Expose
@@ -14,20 +11,6 @@ public class Info implements Serializable {
     @SerializedName("time")
     @Expose
     private Integer time;
-
-    public Info() {
-    }
-
-    /**
-     *
-     * @param time
-     * @param coinsNum
-     */
-    public Info(Integer coinsNum, Integer time) {
-        super();
-        this.coinsNum = coinsNum;
-        this.time = time;
-    }
 
     public Integer getCoinsNum() {
         return coinsNum;
@@ -46,3 +29,4 @@ public class Info implements Serializable {
     }
 
 }
+

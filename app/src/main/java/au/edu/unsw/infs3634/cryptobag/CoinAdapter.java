@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.NumberFormat;
 import java.util.List;
+
 import au.edu.unsw.infs3634.cryptobag.Entities.Coin;
 
 public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.CoinViewHolder> {
@@ -24,14 +25,14 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.CoinViewHolder
             Coin coin = (Coin) v.getTag();
             if(mTwoPane) {
                 Bundle arguments = new Bundle();
-                arguments.putString(DetailFragment.ARG_ITEM_ID, coin.getSymbol());
+                arguments.putString(DetailFragment.ARG_ITEM_ID, coin.getId());
                 DetailFragment fragment = new DetailFragment();
                 fragment.setArguments(arguments);
                 mParentActivity.getSupportFragmentManager().beginTransaction().replace(R.id.detail_container, fragment).commit();
             } else {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra(DetailFragment.ARG_ITEM_ID, coin.getSymbol());
+                intent.putExtra(DetailFragment.ARG_ITEM_ID, coin.getId());
                 context.startActivity(intent);
             }
         }
@@ -66,7 +67,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.CoinViewHolder
         Coin coin = mCoins.get(position);
         holder.name.setText(coin.getName());
         holder.value.setText(NumberFormat.getCurrencyInstance().format(Double.valueOf(coin.getPriceUsd())));
-        holder.change.setText(coin.getPercentChange24h() + "%");
+        holder.change.setText(coin.getPercentChange24h() + " %");
         holder.itemView.setTag(coin);
         holder.itemView.setOnClickListener(mOnClickListener);
     }
@@ -77,7 +78,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.CoinViewHolder
         return mCoins.size();
     }
 
-    public void setCoins(List<Coin> coins){
+    public void setCoins(List<Coin> coins) {
         mCoins.clear();
         mCoins.addAll(coins);
         notifyDataSetChanged();

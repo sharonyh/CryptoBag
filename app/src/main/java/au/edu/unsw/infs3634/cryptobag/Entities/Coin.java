@@ -1,13 +1,11 @@
 package au.edu.unsw.infs3634.cryptobag.Entities;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.io.Serializable;
-
-public class Coin implements Serializable
-{
+public class Coin {
 
     @SerializedName("id")
     @Expose
@@ -57,53 +55,6 @@ public class Coin implements Serializable
     @SerializedName("msupply")
     @Expose
     private String msupply;
-    private final static long serialVersionUID = 102048475162260763L;
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public Coin() {
-    }
-
-    /**
-     *
-     * @param symbol
-     * @param volume24a
-     * @param priceUsd
-     * @param priceBtc
-     * @param volume24
-     * @param percentChange24h
-     * @param percentChange7d
-     * @param marketCapUsd
-     * @param msupply
-     * @param tsupply
-     * @param name
-     * @param nameid
-     * @param rank
-     * @param csupply
-     * @param id
-     * @param percentChange1h
-     */
-    public Coin(String id, String symbol, String name, String nameid, Integer rank, String priceUsd, String percentChange24h, String percentChange1h, String percentChange7d, String priceBtc, String marketCapUsd, Double volume24, Double volume24a, String csupply, String tsupply, String msupply) {
-        super();
-        this.id = id;
-        this.symbol = symbol;
-        this.name = name;
-        this.nameid = nameid;
-        this.rank = rank;
-        this.priceUsd = priceUsd;
-        this.percentChange24h = percentChange24h;
-        this.percentChange1h = percentChange1h;
-        this.percentChange7d = percentChange7d;
-        this.priceBtc = priceBtc;
-        this.marketCapUsd = marketCapUsd;
-        this.volume24 = volume24;
-        this.volume24a = volume24a;
-        this.csupply = csupply;
-        this.tsupply = tsupply;
-        this.msupply = msupply;
-    }
 
     public String getId() {
         return id;
@@ -233,9 +184,9 @@ public class Coin implements Serializable
         this.msupply = msupply;
     }
 
+    @NonNull
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("symbol", symbol).append("name", name).append("nameid", nameid).append("rank", rank).append("priceUsd", priceUsd).append("percentChange24h", percentChange24h).append("percentChange1h", percentChange1h).append("percentChange7d", percentChange7d).append("priceBtc", priceBtc).append("marketCapUsd", marketCapUsd).append("volume24", volume24).append("volume24a", volume24a).append("csupply", csupply).append("tsupply", tsupply).append("msupply", msupply).toString();
+        return id;
     }
-
 }
