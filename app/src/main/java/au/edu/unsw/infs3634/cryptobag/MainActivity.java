@@ -8,6 +8,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean mTwoPane;
     private CoinAdapter mAdapter;
     private String TAG = "MainActivity";
+    private CoinDatabase mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new CoinAdapter(this, new ArrayList<Coin>(), mTwoPane);
         mRecyclerView.setAdapter(mAdapter);
+
+
+        //build Database
+        mDb = Room.databaseBuilder(getApplicationContext(), CoinDatabase.class, "coin-database").build();
+
+        //execute AsyncTask
+        new GetCoinDBTask().execute();
         new GetCoinTask().execute();
     }
 
@@ -62,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Response<CoinLoreResponse> coinResponse = coinsCall.execute();
                 List<Coin> coins = coinResponse.body().getData();
+
+
+                mDb.coinDao().deleteAll(mDb.coinDao().getCoins().toArray(new Coin[mDb.coinDao().getCoins().size()]));
+
+
+                mDb.coinDao().insertAll(coins.toArray(new Coin[coins.size()]));
+
                 return coins;
             }
 
@@ -78,5 +94,21 @@ public class MainActivity extends AppCompatActivity {
             mAdapter.setCoins(coins);
 
         }
+
+
+
+    }
+
+    private class GetCoinDBTask extends AsyncTask<Void, Void, List<Coin>> {
+        @Override
+        protected List<Coin> doInBackground(Void... voids) {
+            return mDb.coinDao().getCoins();
+        }
+
+        @Override
+        protected void onPostExecute(List<Coin> coins) {
+            mAdapter.setCoins(coins);
+        }
     }
 }
+
